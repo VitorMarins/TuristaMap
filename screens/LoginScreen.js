@@ -5,11 +5,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function LoginScreen({ navigation }) {
   const [nome, setNome] = useState('');
-  const [password, setPassword] = useState('');
+  const [senha, setSenha] = useState('');
 
   const login = async () => {
     try {
-      const response = await axios.post('http://127.0.0.1:3000/api/auth/login', { nome, senha });
+      const response = await axios.post('https://turistamap-backend.onrender.com/api/auth/login', { nome: nome, senha: senha });
       await AsyncStorage.setItem('token', response.data.token);
       alert('Boas-vindas!');
       navigation.replace('Home');
@@ -22,7 +22,7 @@ export default function LoginScreen({ navigation }) {
     <View style={styles.container}>
       <Text>Olá! Autentique-se para entrar.</Text>
       <TextInput placeholder="Nome" value={nome} onChangeText={setNome} style={styles.input} />
-      <TextInput placeholder="Senha" value={password} onChangeText={setPassword} secureTextEntry style={styles.input} />
+      <TextInput placeholder="Senha" value={senha} onChangeText={setSenha} secureTextEntry style={styles.input} />
       <Button title="Entrar" onPress={login} />
       
       {/* Botão para navegar até a tela de registro */}

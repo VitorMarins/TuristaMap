@@ -10,8 +10,8 @@ export default function HomeScreen({ navigation }) {
     const fetchUsers = async () => {
       const token = await AsyncStorage.getItem('token');
       try {
-        const response = await axios.get('http://localhost:3000/api/users', {
-          headers: { Authorization: token }
+        const response = await axios.get('https://turistamap-backend.onrender.com/api/usuarios', {
+          headers: { Authorization: 'Bearer '+ token }
         });
         setUsers(response.data);
       } catch (error) {
@@ -26,8 +26,8 @@ export default function HomeScreen({ navigation }) {
   const deleteUser = async (userId) => {
     const token = await AsyncStorage.getItem('token');
     try {
-      await axios.delete(`http://localhost:3000/api/users/${userId}`, {
-        headers: { Authorization: token }
+      await axios.delete(`https://turistamap-backend.onrender.com/api/usuarios/${userId}`, {
+        headers: { Authorization: 'Bearer '+ token }
       });
       setUsers(users.filter((user) => user._id !== userId));
       alert('Usuário deletado com sucesso!');
@@ -49,7 +49,7 @@ export default function HomeScreen({ navigation }) {
         keyExtractor={(item) => item._id}
         renderItem={({ item }) => (
           <View style={styles.userContainer}>
-            <Text>{item.username} ({item.email})</Text>
+            <Text>{item.nome}</Text>
             <TouchableOpacity onPress={() => deleteUser(item._id)} style={styles.deleteButton}>
               <Text style={styles.deleteText}>Deletar</Text>
             </TouchableOpacity>
@@ -62,7 +62,7 @@ export default function HomeScreen({ navigation }) {
         <Text style={styles.logoutText}>Sair</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity onPress={() => navigation.navigate('Cadastro')} style={styles.logoutButton}>
+      <TouchableOpacity onPress={() => navigation.navigate('Turismo')} style={styles.logoutButton}>
         <Text style={styles.logoutText}>Pontos turisticos</Text>
       </TouchableOpacity>
     </View>

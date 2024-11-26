@@ -9,7 +9,7 @@ export default function RegisterScreen({ navigation }) {
 
   const register = async () => {
     try {
-      await axios.post('http://localhost:3000/api/users/register', { nome, senha });
+      await axios.post('https://turistamap-backend.onrender.com/api/auth/registrar', { nome, senha });
       alert('Usuário adicionado com sucesso!');
       navigation.replace('Login');
     } catch (error) {
